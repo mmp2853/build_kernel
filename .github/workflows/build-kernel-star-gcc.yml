@@ -5,31 +5,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # 修正拼写错误
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Kernel Source Code
       uses: actions/checkout@v3
       with:
         github-server-url: 'https://github.com'
-        repository: mmp2853/android_kernel_xiaomi_sm8350-miui  # 确认这是正确的仓库
+        repository: EndCredits/android_kernel_xiaomi_sm8350-miui
         ref: new-rebase
         path: kernel-srcroot
     
     - name: Setup Build Environment
       run: |
         sudo apt-get -y update
-        sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig p7zip-full python3 cpio
-        
-        # 安装基础的交叉编译工具链
-        sudo apt-get install -y crossbuild-essential-arm64 crossbuild-essential-armel crossbuild-essential-armhf
-        
-        # 尝试安装 
-        gcc-aarch64-linux-gnu 和 gcc-arm-linux-gnueabi
-        sudo apt-get install -y gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi || true
-        
-        # 安装其他必要的编译工具
-        sudo apt-get install -y gcc g++ make bc libssl-dev kmod libelf-dev rsync
+        sudo apt-get install git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig p7zip-full python3 cpio gcc gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu
 
     - name: Setup Kernel SU
       run: |
@@ -41,10 +31,7 @@ jobs:
       run: |
         cd kernel-srcroot
         gcc --version
-        # 检查交叉编译工具是否安装成功
-        which aarch64-linux-gnu-gcc || echo "aarch64-linux-gnu-gcc not found"
-        which arm-linux-gnueabi-gcc || echo "arm-linux-gnueabi-gcc not found"
-        
+
         bash build.sh all star 1
 
         echo "TARGET_KERNEL_FLASHABLE_NAME=$(ls ../out/anykernel/ | grep Hana)" >> $GITHUB_ENV
