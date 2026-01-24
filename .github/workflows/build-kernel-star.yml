@@ -33,12 +33,15 @@ jobs:
     - name: Setup Kernel SU
       run: |
         cd kernel-srcroot
+        rm -rf KernelSU
         git submodule init
         git submodule update --checkout
 
     - name: Build Kernel for star
       run: |
         cd kernel-srcroot
+        rm -rf KernelSU
+        curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s next
         PATH=${{ env.TARGET_CLANG_PATH }}/:$PATH
         clang --version
 
