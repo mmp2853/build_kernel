@@ -30,12 +30,7 @@ jobs:
         TARGET_CLANG_PATH="$(pwd)/$(find ./ -name "bin")"
         echo "TARGET_CLANG_PATH=${TARGET_CLANG_PATH}" > $GITHUB_ENV
 
-    - name: Setup Kernel SU
-      run: |
-        cd kernel-srcroot
-        git submodule init
-        git submodule update --checkout
-
+    
     - name: Build Kernel for star
       run: |
         cd kernel-srcroot
