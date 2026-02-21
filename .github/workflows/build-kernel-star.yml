@@ -13,7 +13,7 @@ jobs:
       with:
         github-server-url: 'https://github.com'
         repository: mmp2853/android_kernel_xiaomi_sm8350-miui
-        ref: new-rebase
+        ref: ksutest
         path: kernel-srcroot
     
     - name: Setup Build Environment
