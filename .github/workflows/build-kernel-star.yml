@@ -39,9 +39,8 @@ jobs:
     - name: Apply Patch
       run: |
         cd kernel-srcroot
-        find $GITHUB_WORKSPACE -name "kernelsufix.patch"
-        patch -p1 < $GITHUB_WORKSPACE/kernelsufix.patch
-        patch -p1 < $GITHUB_WORKSPACE/kernel-4.19.patch
+        patch -p1 < kernelsufix.patch
+        patch -p1 < kernel-4.19.patch
         
 
 
