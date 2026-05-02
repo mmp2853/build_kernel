@@ -54,7 +54,7 @@ jobs:
         # 3. 修复 patch_memory.c (定义缺失的 copy_to_kernel_nofault)
         sed -i '/#include <asm\/smp_plat.h>/a \\n#include <linux/version.h>\n#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0)\n#ifndef copy_to_kernel_nofault\n#define copy_to_kernel_nofault(dst, src, size) probe_kernel_write(dst, src, size)\n#endif\n#endif' kernel/hook/arm64/patch_memory.c
 
-        cd kernel-srcroot
+        cd $GITHUB_WORKSPACE/kernel-srcroot
         patch -p1 < kernel-4.19.patch
         
 
