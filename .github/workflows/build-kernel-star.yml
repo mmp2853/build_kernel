@@ -35,6 +35,14 @@ jobs:
         cd kernel-srcroot
         git submodule init
         git submodule update --checkout
+       
+    - name: Apply Patch
+      run: |
+        cd kernel-srcroot
+        patch -p1 < ../kernelsufix.patch
+        patch -p1 < ../kernel-4.19.patch
+        
+
 
     - name: Build Kernel for star
       run: |
