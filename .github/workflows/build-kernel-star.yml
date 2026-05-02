@@ -41,6 +41,7 @@ jobs:
         cd kernel-srcroot
         patch -p1 < kernelsufix.patch
         patch -p1 < kernel-4.19.patch
+        find $GITHUB_WORKSPACE -name "kernelsufix.patch"
         
 
 
