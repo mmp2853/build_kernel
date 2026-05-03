@@ -56,6 +56,8 @@ jobs:
 
         cd $GITHUB_WORKSPACE/kernel-srcroot
         patch -p1 < kernel-4.19.patch
+        # 调用修复
+        sed -i 's/ksu_handle_newfstat_ret(&fd, &statbuf);/ksu_handle_newfstat_ret(\&fd, (struct stat __user **)\&statbuf);/g' fs/stat.c
         
 
 
